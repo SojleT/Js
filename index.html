@@ -1,0 +1,55 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Promise finally example</title>
+       
+    </head>
+    <body>
+      
+        <div id="container"></div>
+        <script>
+           class Student {
+  constructor(ime, adresa, telefon, kurs) {
+    this.ime = ime;
+    this.adresa = adresa;
+    this.telefon = telefon;
+    this.kurs = kurs;
+  }
+}
+
+
+fetch("students.txt")
+  .then((response) => response.text())
+  .then((data) => {
+    const lines = data.split("\n");
+    const students = [];
+    for (let i = 0; i < lines.length; i += 4) {
+      const student = new Student(
+        lines[i],
+        lines[i + 1],
+        lines[i + 2],
+        lines[i + 3]
+      );
+      students.push(student);
+    }
+
+    
+    const container = document.getElementById("container");
+    students.forEach((student) => {
+      const div = document.createElement("div");
+      div.innerHTML = `<p><strong>Ime:</strong> ${student.ime}</p>
+                        <p><strong>Adresa:</strong> ${student.adresa}</p>
+                        <p><strong>Telefon:</strong> ${student.telefon}</p>
+                        <p><strong>Kurs:</strong> ${student.kurs}</p>`;
+      container.appendChild(div);
+    });
+  })
+  .catch((error) => console.error(error));
+        </script>
+    </body>
+</html>
